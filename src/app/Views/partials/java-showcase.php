@@ -170,35 +170,35 @@
                     <article class="card">
                         <h2><?= htmlspecialchars(__('java_showcase.data.loop_files.title'), ENT_QUOTES, 'UTF-8') ?></h2>
                         <p><?= htmlspecialchars(__('java_showcase.data.loop_files.text'), ENT_QUOTES, 'UTF-8') ?></p>
-                        <pre class="mini-code"><code>for (Path file : files) {
-    if (isReportFile(file)) {
-        continue;
+                        <pre class="mini-code"><code><span class="code-keyword">for</span> (<span class="code-type">Path</span> file : files) {
+    <span class="code-keyword">if</span> (isReportFile(file)) {
+        <span class="code-keyword">continue</span>;
     }
-    processFile(file, students, subjectStats, invalidFiles);
+    <span class="code-method">processFile</span>(file, students, subjectStats, invalidFiles);
 }</code></pre>
                     </article>
                     <article class="card">
                         <h2><?= htmlspecialchars(__('java_showcase.data.loop_grades.title'), ENT_QUOTES, 'UTF-8') ?></h2>
                         <p><?= htmlspecialchars(__('java_showcase.data.loop_grades.text'), ENT_QUOTES, 'UTF-8') ?></p>
-                        <pre class="mini-code"><code>for (Map.Entry&lt;String, Integer&gt; grade :
+                        <pre class="mini-code"><code><span class="code-keyword">for</span> (<span class="code-type">Map.Entry</span>&lt;<span class="code-type">String</span>, <span class="code-type">Integer</span>&gt; grade :
         student.subjectGrades.entrySet()) {
     subjectStats
-        .computeIfAbsent(grade.getKey(), k -&gt; new SubjectStats())
-        .add(grade.getValue());
+        .<span class="code-method">computeIfAbsent</span>(grade.getKey(), k -&gt; <span class="code-keyword">new</span> <span class="code-type">SubjectStats</span>())
+        .<span class="code-method">add</span>(grade.getValue());
 }</code></pre>
                     </article>
                     <article class="card">
                         <h2><?= htmlspecialchars(__('java_showcase.data.map_store.title'), ENT_QUOTES, 'UTF-8') ?></h2>
                         <p><?= htmlspecialchars(__('java_showcase.data.map_store.text'), ENT_QUOTES, 'UTF-8') ?></p>
-                        <pre class="mini-code"><code>grades.put(subject, Integer.parseInt(matcher.group(2)));</code></pre>
+                        <pre class="mini-code"><code>grades.<span class="code-method">put</span>(subject, <span class="code-type">Integer</span>.<span class="code-method">parseInt</span>(matcher.group(<span class="code-number">2</span>)));</code></pre>
                     </article>
                     <article class="card">
                         <h2><?= htmlspecialchars(__('java_showcase.data.streams.title'), ENT_QUOTES, 'UTF-8') ?></h2>
                         <p><?= htmlspecialchars(__('java_showcase.data.streams.text'), ENT_QUOTES, 'UTF-8') ?></p>
-                        <pre class="mini-code"><code>double average = grades.values().stream()
-    .mapToInt(Integer::intValue)
-    .average()
-    .orElse(0.0);</code></pre>
+                        <pre class="mini-code"><code><span class="code-keyword">double</span> average = grades.values().stream()
+    .<span class="code-method">mapToInt</span>(<span class="code-type">Integer</span>::intValue)
+    .<span class="code-method">average</span>()
+    .<span class="code-method">orElse</span>(<span class="code-number">0.0</span>);</code></pre>
                     </article>
                 </div>
             </div>
@@ -310,7 +310,7 @@
                         <li><code>    <span class="code-keyword">private static final double</span> EPS = <span class="code-number">1e-9</span>;</code></li>
                         <li><code></code></li>
                         <li><code>    <span class="code-comment">// Точка входа: координирует весь сценарий выполнения программы</span></code></li>
-                        <li><code>    <span class="code-keyword">public static void</span> <span class="code-method">main</span>(String[] args) {</code></li>
+                        <li class="code-focus"><code>    <span class="code-keyword">public static void</span> <span class="code-method">main</span>(String[] args) {</code></li>
                         <li><code>        <span class="code-type">Path</span> folder = <span class="code-method">readFolderPath</span>();</code></li>
                         <li><code>        <span class="code-keyword">if</span> (folder == <span class="code-keyword">null</span>) {</code></li>
                         <li><code>            <span class="code-keyword">return</span>;</code></li>
@@ -345,7 +345,7 @@
                         <li><code>    }</code></li>
                         <li><code></code></li>
                         <li><code>    <span class="code-comment">// Обходит все txt-файлы в папке и собирает общую статистику</span></code></li>
-                        <li><code>    <span class="code-keyword">private static</span> <span class="code-type">AnalysisResult</span> <span class="code-method">analyzeFolder</span>(Path folder) {</code></li>
+                        <li class="code-focus"><code>    <span class="code-keyword">private static</span> <span class="code-type">AnalysisResult</span> <span class="code-method">analyzeFolder</span>(Path folder) {</code></li>
                         <li><code>        List&lt;Student&gt; students = new ArrayList&lt;&gt;();</code></li>
                         <li><code>        Map&lt;String, SubjectStats&gt; subjectStats = new LinkedHashMap&lt;&gt;();</code></li>
                         <li><code>        List&lt;String&gt; invalidFiles = new ArrayList&lt;&gt;();</code></li>
@@ -372,7 +372,7 @@
                         <li><code>    }</code></li>
                         <li><code></code></li>
                         <li><code>    <span class="code-comment">// Обрабатывает один файл ученика: валидирует имя и разбирает содержимое</span></code></li>
-                        <li><code>    <span class="code-keyword">private static void</span> <span class="code-method">processFile</span>(</code></li>
+                        <li class="code-focus"><code>    <span class="code-keyword">private static void</span> <span class="code-method">processFile</span>(</code></li>
                         <li><code>            Path file,</code></li>
                         <li><code>            List&lt;Student&gt; students,</code></li>
                         <li><code>            Map&lt;String, SubjectStats&gt; subjectStats,</code></li>
@@ -404,7 +404,7 @@
                         <li><code>    }</code></li>
                         <li><code></code></li>
                         <li><code>    <span class="code-comment">// Разбирает один файл ученика в Map предметов и вычисляет средний балл</span></code></li>
-                        <li><code>    <span class="code-keyword">private static</span> <span class="code-type">Student</span> <span class="code-method">parseStudentFile</span>(Path file, String fio) <span class="code-keyword">throws</span> IOException {</code></li>
+                        <li class="code-focus"><code>    <span class="code-keyword">private static</span> <span class="code-type">Student</span> <span class="code-method">parseStudentFile</span>(Path file, String fio) <span class="code-keyword">throws</span> IOException {</code></li>
                         <li><code>        Map&lt;String, Integer&gt; grades = new LinkedHashMap&lt;&gt;();</code></li>
                         <li><code></code></li>
                         <li><code>        <span class="code-comment">// Цикл идет по всем строкам файла и проверяет каждую запись</span></code></li>
@@ -456,7 +456,7 @@
                         <li><code>    }</code></li>
                         <li><code></code></li>
                         <li><code>    <span class="code-comment">// Собирает конечный текстовый отчет на основе всех найденных данных</span></code></li>
-                        <li><code>    <span class="code-keyword">private static</span> <span class="code-type">String</span> <span class="code-method">buildReport</span>(AnalysisResult result) {</code></li>
+                        <li class="code-focus"><code>    <span class="code-keyword">private static</span> <span class="code-type">String</span> <span class="code-method">buildReport</span>(AnalysisResult result) {</code></li>
                         <li><code>        StringBuilder sb = new StringBuilder();</code></li>
                         <li><code></code></li>
                         <li><code>        sb.append("=== Анализ оценок ===\\n");</code></li>

@@ -444,7 +444,11 @@ a {
 }
 
 .showcase-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     min-height: 42px;
+    padding-inline: 14px;
 }
 
 .showcase-tag-topic {
@@ -458,17 +462,26 @@ a {
 .showcase-link {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
-    padding: 9px 14px;
+    min-height: 42px;
+    padding: 9px 16px;
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.04);
     box-shadow: 0 0 18px rgba(76, 201, 240, 0.08);
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
 }
 
 .showcase-link:hover {
+    transform: translateY(-1px);
     border-color: rgba(255, 78, 205, 0.4);
     box-shadow: 0 0 18px rgba(255, 78, 205, 0.18);
+    background: rgba(255, 255, 255, 0.06);
 }
 
 .showcase-tabs {
@@ -485,16 +498,61 @@ a {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
+    padding: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 22px;
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015)),
+        rgba(10, 7, 27, 0.7);
 }
 
 .showcase-tab-labels label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     cursor: pointer;
-    padding: 10px 16px;
-    border-radius: 999px;
+    min-height: 46px;
+    padding: 10px 18px;
+    border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.12);
     background: rgba(255, 255, 255, 0.04);
-    transition: all 0.2s ease;
+    color: #f4e8ff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-align: center;
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.showcase-tab-labels label::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(197, 175, 216, 0.52);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.showcase-tab-labels label:hover {
+    transform: translateY(-1px);
+    border-color: rgba(76, 201, 240, 0.35);
+    box-shadow: 0 0 18px rgba(76, 201, 240, 0.12);
+    background: rgba(255, 255, 255, 0.065);
+}
+
+.showcase-tab-labels label:hover::before {
+    background: rgba(76, 201, 240, 0.85);
+    box-shadow: 0 0 12px rgba(76, 201, 240, 0.35);
 }
 
 #java-tab-overview:checked ~ .showcase-tab-labels label[for="java-tab-overview"],
@@ -508,6 +566,28 @@ a {
     box-shadow: 0 0 20px rgba(255, 78, 205, 0.16);
 }
 
+#java-tab-overview:checked ~ .showcase-tab-labels label[for="java-tab-overview"]::before,
+#java-tab-structure:checked ~ .showcase-tab-labels label[for="java-tab-structure"]::before,
+#java-tab-functions:checked ~ .showcase-tab-labels label[for="java-tab-functions"]::before,
+#java-tab-data:checked ~ .showcase-tab-labels label[for="java-tab-data"]::before,
+#java-tab-flow:checked ~ .showcase-tab-labels label[for="java-tab-flow"]::before,
+#java-tab-code:checked ~ .showcase-tab-labels label[for="java-tab-code"]::before {
+    background: linear-gradient(135deg, rgba(255, 209, 102, 0.98), rgba(255, 78, 205, 0.92));
+    box-shadow:
+        0 0 12px rgba(255, 78, 205, 0.4),
+        0 0 20px rgba(255, 209, 102, 0.18);
+    transform: scale(1.15);
+}
+
+.showcase-tab-panels {
+    padding: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015)),
+        rgba(8, 6, 24, 0.6);
+}
+
 .showcase-tab-panel {
     display: none;
 }
@@ -519,6 +599,7 @@ a {
 #java-tab-flow:checked ~ .showcase-tab-panels .showcase-flow-panel,
 #java-tab-code:checked ~ .showcase-tab-panels .showcase-code-panel {
     display: block;
+    animation: showcaseFadeIn 0.22s ease;
 }
 
 .showcase-grid,
@@ -529,6 +610,33 @@ a {
 
 .showcase-grid {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.showcase-overview-panel .showcase-grid,
+.showcase-functions-panel .function-list {
+    align-items: stretch;
+}
+
+.showcase-overview-panel .card,
+.showcase-functions-panel .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.showcase-overview-panel .card p,
+.showcase-functions-panel .card p {
+    flex: 1;
+    line-height: 1.72;
+}
+
+.showcase-tab-panel .card,
+.showcase-tab-panel .flow-step,
+.showcase-tab-panel .code-window,
+.showcase-tab-panel .call-chain {
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 18px 42px rgba(0, 0, 0, 0.24);
 }
 
 /* The data/loops tab uses wider educational cards, because examples there are denser. */
@@ -554,6 +662,15 @@ a {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 18px;
+}
+
+.showcase-functions-panel .card code {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #d6f3ff;
+    font-size: 0.92em;
 }
 
 .flow-steps {
@@ -691,8 +808,21 @@ a {
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 24px;
     overflow: hidden;
-    background: rgba(6, 4, 18, 0.95);
+    background:
+        linear-gradient(90deg, rgba(26, 31, 46, 0.96) 0 58px, rgba(15, 18, 30, 0.98) 58px 100%);
     box-shadow: 0 18px 50px rgba(0, 0, 0, 0.34);
+    position: relative;
+}
+
+.code-window::before {
+    content: "";
+    position: absolute;
+    top: 49px;
+    bottom: 0;
+    left: 58px;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    pointer-events: none;
 }
 
 .code-window-bar {
@@ -701,7 +831,7 @@ a {
     gap: 8px;
     padding: 14px 18px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(255, 255, 255, 0.045);
 }
 
 .code-window-bar span {
@@ -744,20 +874,40 @@ a {
 
 .code-list {
     margin: 0;
-    padding: 18px 0 18px 64px;
+    padding: 14px 0 18px 58px;
     overflow-x: auto;
     color: #dff7ff;
     font-size: 0.93rem;
-    line-height: 1.7;
+    line-height: 1.72;
+    counter-reset: editor-line;
 }
 
 .code-list li {
-    padding: 0 22px 0 10px;
+    padding: 0 22px 0 14px;
     white-space: pre;
+    min-height: 1.72em;
+    background: transparent;
+    transition: background 0.16s ease;
+    position: relative;
 }
 
 .code-list li::marker {
-    color: rgba(197, 175, 216, 0.72);
+    color: rgba(137, 150, 171, 0.88);
+    font-size: 0.88em;
+}
+
+.code-list li:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.code-list li.code-focus {
+    background:
+        linear-gradient(90deg, rgba(76, 201, 240, 0.12), rgba(255, 78, 205, 0.08));
+    box-shadow: inset 3px 0 0 rgba(76, 201, 240, 0.75);
+}
+
+.code-list li.code-focus::marker {
+    color: #d7e9ff;
 }
 
 .code-list code {
@@ -798,16 +948,43 @@ a {
     padding: 16px 18px;
     border-radius: 16px;
     overflow-x: auto;
-    background: rgba(6, 4, 18, 0.85);
+    background:
+        linear-gradient(90deg, rgba(28, 33, 47, 0.94) 0 44px, rgba(14, 18, 29, 0.96) 44px 100%);
     color: #dff7ff;
     font-size: 0.9rem;
     line-height: 1.7;
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    position: relative;
+}
+
+.mini-code::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 44px;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    pointer-events: none;
 }
 
 .mini-code code {
     font-family: "Consolas", "Courier New", monospace;
+    display: block;
+    padding-left: 18px;
+}
+
+@keyframes showcaseFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Responsive adjustments for tablets and phones. */
@@ -846,6 +1023,26 @@ a {
 
     .showcase-tag-topic {
         max-width: 100%;
+    }
+
+    .showcase-tab-labels {
+        padding: 8px;
+    }
+
+    .showcase-tab-labels label {
+        flex: 1 1 140px;
+    }
+
+    .showcase-tab-panels {
+        padding: 16px;
+    }
+
+    .code-window::before {
+        left: 52px;
+    }
+
+    .code-list {
+        padding-left: 52px;
     }
 
     .call-chain {
