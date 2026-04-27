@@ -1,0 +1,13 @@
+{
+    "name": "learning/php-learning",
+    "description": "MVC learning project with PHP, PostgreSQL and Eloquent ORM",
+    "type": "project",
+    "require": {
+        "illuminate/database": "^12.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/app/"
+        }
+    }
+}

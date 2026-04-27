@@ -1,0 +1,14 @@
+/vendor/
+/.idea/
+/java_homework_showcase/
+/.vscode/
+/.env
+/.env.*
+!/env.example
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

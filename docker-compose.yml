@@ -1,0 +1,47 @@
+services:
+  app:
+    # Контейнер приложения: здесь запускается встроенный PHP-сервер и весь MVC-код.
+    build: .
+    container_name: php-learning
+    working_dir: /app
+    # Сначала должна подняться база, потому что модели читают данные из PostgreSQL.
+    depends_on:
+      - db
+    # Пробрасываем текущую папку внутрь контейнера, чтобы изменения в коде были видны сразу.
+    volumes:
+      - ./:/app
+    # Слева порт компьютера, справа порт внутри контейнера.
+    ports:
+      - "8000:8000"
+    # Эти переменные читает src/bootstrap.php для подключения Eloquent к БД.
+    environment:
+      DB_CONNECTION: pgsql
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_DATABASE: php_learning
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+    # PHP-сервер отдает публичную папку, а точка входа проекта находится в src/public/index.php.
+    command: php -S 0.0.0.0:8000 -t src/public
+
+  db:
+    # Отдельный контейнер с PostgreSQL.
+    image: postgres:16
+    container_name: php-learning-db
+    restart: unless-stopped
+    # Эти значения создают базу и пользователя при первом старте контейнера.
+    environment:
+      POSTGRES_DB: php_learning
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      # Здесь PostgreSQL хранит реальные данные между перезапусками контейнера.
+      - postgres_data:/var/lib/postgresql/data
+      # SQL-файлы из этой папки выполняются автоматически при первой инициализации базы.
+      - ./docker/postgres/init:/docker-entrypoint-initdb.d
+
+volumes:
+  # Именованный volume нужен, чтобы данные БД не терялись при пересборке app-контейнера.
+  postgres_data:
